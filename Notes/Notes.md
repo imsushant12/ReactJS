@@ -221,6 +221,36 @@ function Greeting(props) {
 <Greeting name="Aadyaa" />
 ```
 
+### What is React Fiber, and Why Was It Introduced?
+**React Fiber** is a complete re-architecture of React’s rendering engine, introduced in **React 16**. Its goal is to make React faster and more efficient by allowing more control over how rendering tasks are prioritized.
+
+#### Why Was React Fiber Introduced?
+In earlier versions of React, updates (like DOM manipulation) were done synchronously, meaning they blocked other tasks like user interactions until the rendering was complete. As applications grew in complexity, this led to performance issues, especially for components with heavy rendering logic.
+
+**Fiber was introduced to:**
+- Break the rendering process into small units of work.
+- Pause and resume tasks, enabling React to handle animations, transitions, and user interactions smoothly without being blocked by updates.
+- Allow React to prioritize rendering based on the importance of tasks, improving performance for complex apps.
+
+#### How Does React Fiber Work?
+Fiber uses a process called **reconciliation**, which refers to the way React updates the DOM. Fiber allows React to "pause" a rendering task and give priority to more critical tasks (like user input), resuming the task later.
+
+### What is an Evaluated Expression in React?
+React allows the evaluation of JavaScript expressions within JSX using curly braces `{}`. However, you cannot use statements like `if` or `for` directly.
+
+**Example:**
+```jsx
+const variable = "Hi!";
+<h1>{variable}</h1>; // Works
+
+<h1>{if(true)} Hi!</h1>; // Will throw an error
+```
+
+You can handle conditions with **ternary operators** or logical AND (`&&`) inside JSX:
+```jsx
+<h1>{true ? "Hello" : "Goodbye"}</h1>;
+```
+
 ### What is Hook in React?
 **Hooks** are special functions introduced in `React 16.8` that allow you to use state and other React features (like lifecycle methods) in **functional components**. Before hooks, only class components could manage state and side effects.
 
@@ -244,23 +274,6 @@ function Counter() {
   return <p>{count}</p>;
 }
 ```
-
-### What is an Evaluated Expression in React?
-React allows the evaluation of JavaScript expressions within JSX using curly braces `{}`. However, you cannot use statements like `if` or `for` directly.
-
-**Example:**
-```jsx
-const variable = "Hi!";
-<h1>{variable}</h1>; // Works
-
-<h1>{if(true)} Hi!</h1>; // Will throw an error
-```
-
-You can handle conditions with **ternary operators** or logical AND (`&&`) inside JSX:
-```jsx
-<h1>{true ? "Hello" : "Goodbye"}</h1>;
-```
-
 
 ### Why Were Hooks Introduced and What Problem Do They Solve?
 Before **Hooks**, state and side effects (like data fetching or DOM manipulation) could only be handled in **class components**. Functional components were simple but limited: they couldn't manage state, lifecycle, or side effects, which led to some significant issues:
@@ -288,8 +301,7 @@ With Hooks:
 - Hooks make it easy to **reuse logic** across components by simply calling a custom hook.
 - The need for complex patterns like HOCs and Render Props has been reduced.
 
-#### Hooks Simplify Code:
-Hooks allow you to split component logic by concerns, instead of forcing you to organize it by lifecycle methods. For example, you can have one `useEffect` to manage data fetching and another to handle a subscription.
+**Hooks Simplify Code**: Hooks allow you to split component logic by concerns, instead of forcing you to organize it by lifecycle methods. For example, you can have one `useEffect` to manage data fetching and another to handle a subscription.
 
 #### Example: Refactoring Class Component with Hooks
 **Class Component with State and Side Effects (Lifecycle Methods):**
@@ -340,3 +352,223 @@ function Timer() {
 1. **No need for class syntax**: You can write simpler code using functional components.
 2. **Better logic organization**: Different logic (e.g., intervals, subscriptions) can be grouped into separate hooks instead of being cluttered in lifecycle methods.
 3. **Easy code reuse**: You can reuse hooks in different components easily by extracting custom hooks.
+
+### `useState()` Hook
+The `useState()` hook is one of the fundamental hooks in React. It lets you add state to functional components.
+
+#### Syntax:
+```jsx
+const [state, setState] = useState(initialState);
+```
+
+#### When to Use `useState()`:
+- Use `useState()` when you need to **store** and **update** a value in your functional component.
+- For example, keeping track of user input, toggling UI elements, or managing counters.
+
+#### Advantages:
+- **Simplifies state management** in functional components.
+- Allows **reusable and testable code** without needing class components.
+- Provides **immediate access** to the updated state.
+
+#### Disadvantages:
+- If overused, state logic can get cluttered, especially when dealing with complex state.
+
+#### Example:
+```jsx
+import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
+
+### `useCallback()` Hook
+The `useCallback()` hook is used to **memoize** functions in React, which prevents them from being re-created on every render unless one of its dependencies changes.
+
+#### Syntax:
+```jsx
+const memoizedCallback = useCallback(() => {
+  // Your logic
+}, [dependency]);
+```
+
+#### When to Use `useCallback()`:
+- Use `useCallback()` when you want to **prevent unnecessary re-creations of functions**.
+- It's most effective in situations where a function is passed as a prop to child components, avoiding their unnecessary re-renders.
+
+#### Advantages:
+- **Optimizes performance** by memoizing functions, preventing unnecessary re-renders.
+- Helps **improve performance in large applications** with many components.
+
+#### Disadvantages:
+- It adds **complexity** to simple components and should only be used when performance optimization is needed.
+- Can result in **overhead** if used incorrectly or unnecessarily.
+
+#### Example:
+```jsx
+import React, { useState, useCallback } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const increment = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+}
+```
+
+
+### 4. `useEffect()` Hook
+The `useEffect()` hook allows you to **run side effects** in functional components. These side effects include fetching data, subscriptions, or manually changing the DOM.
+
+#### Syntax:
+```jsx
+useEffect(() => {
+  // Side-effect logic
+  return () => {
+    // Cleanup logic (optional)
+  };
+}, [dependency]);
+```
+
+#### When to Use `useEffect()`:
+- Use `useEffect()` for **fetching data**, **adding event listeners**, **cleaning up subscriptions**, etc.
+- It's similar to lifecycle methods in class components (`componentDidMount`, `componentDidUpdate`, `componentWillUnmount`).
+
+#### Advantages:
+- Allows **clean and simple handling** of side effects.
+- Lets you **clean up side effects** (such as removing event listeners) when the component unmounts.
+
+#### Disadvantages:
+- If not used correctly, it can cause **performance issues** (e.g., running effects too frequently).
+- **Complexity increases** when multiple side effects are used in one component.
+
+#### Example:
+```jsx
+import React, { useState, useEffect } from 'react';
+
+function Timer() {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(prevSeconds => prevSeconds + 1);
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, []);
+
+  return <div>Timer: {seconds} seconds</div>;
+}
+```
+
+### 5. `useRef()` Hook
+The `useRef()` hook gives you a way to **persist values** across renders without causing a re-render. It also provides access to **DOM elements directly**.
+
+#### Syntax:
+```jsx
+const refContainer = useRef(initialValue);
+```
+
+#### When to Use `useRef()`:
+- Use `useRef()` when you need to **access DOM elements directly** (e.g., focus input fields) or **store mutable values** that persist across renders.
+- It’s great for keeping track of **previous state values** or referencing HTML elements.
+
+#### Advantages:
+- **Does not cause re-renders** when the value changes.
+- Allows **direct access to DOM elements** without causing performance issues.
+
+#### Disadvantages:
+- It should not be used to **track changing values** that need to cause re-renders.
+
+#### Example:
+```jsx
+import React, { useRef } from 'react';
+
+function TextInputFocus() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus(); // Directly access the DOM input element
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+      <button onClick={focusInput}>Focus Input</button>
+    </div>
+  );
+}
+```
+
+### Difference Between `useEffect()` and `useCallback()` Hooks
+
+Both `useEffect()` and `useCallback()` serve different purposes in React:
+
+| **Feature**  | **`useEffect()`**  | **`useCallback()`**  |
+| :----: | :----: | :----: |
+| **Purpose**  | Executes side effects like data fetching or DOM changes. | Memoizes functions to prevent unnecessary re-creations. |
+| **When to Use**  | For side effects like fetching data, subscriptions, etc. | When passing a function as a prop or avoiding re-renders. |
+| **Return Value** | Optional cleanup function  | Memoized version of the function  |
+| **Common Use Case**  | Fetch data, set up timers, clean up subscriptions  | Memoize callback functions to avoid re-rendering children |
+
+#### Real Example:
+
+**Using `useEffect()` for Side Effects:**
+```jsx
+import React, { useState, useEffect } from 'react';
+
+function DataFetcher() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch('https://api.example.com/data')
+      .then(response => response.json())
+      .then(data => setData(data));
+  }, []); // Dependency array
+
+  return <div>Data: {data}</div>;
+}
+```
+
+**Using `useCallback()` to Memoize Functions:**
+```jsx
+import React, { useState, useCallback } from 'react';
+
+function Counter({ increment }) {
+  return <button onClick={increment}>Increment</button>;
+}
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+
+  const increment = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <Counter increment={increment} />
+    </div>
+  );
+}
+```
+
+In this example, `useCallback()` prevents the `increment` function from being re-created on every render, improving performance when passing it as a prop to the `Counter` component.
+
+--- 
