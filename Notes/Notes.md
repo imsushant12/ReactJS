@@ -571,4 +571,3 @@ function ParentComponent() {
 
 In this example, `useCallback()` prevents the `increment` function from being re-created on every render, improving performance when passing it as a prop to the `Counter` component.
 
---- 
