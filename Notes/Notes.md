@@ -571,3 +571,95 @@ function ParentComponent() {
 
 In this example, `useCallback()` prevents the `increment` function from being re-created on every render, improving performance when passing it as a prop to the `Counter` component.
 
+
+### What is Custom Hooks in React?
+A **custom hook** is essentially a JavaScript function that uses one or more built-in React hooks (`useState`, `useEffect`, etc.) and encapsulates logic that can be reused across multiple components. It allows you to share stateful logic without needing to restructure your component tree.
+
+- It **follows the same rules** as regular hooks (starts with `use`, cannot be called inside loops or conditions, etc.).
+- Custom hooks do **not modify the behavior of React**; they simply let you reuse logic.
+
+#### How Can We Create Custom Hooks?
+Creating a custom hook is similar to writing a normal function. The key difference is that a custom hook **uses React hooks internally**.
+
+Example: **Custom Hook for Fetching Data**
+**Custom Hook (`useFetch`)**:
+```jsx
+import { useState, useEffect } from 'react';
+
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url]);
+
+  return { data, loading, error };
+}
+
+export default useFetch;
+```
+
+**Using the Custom Hook in a Component**:
+```jsx
+import React from 'react';
+import useFetch from './useFetch';
+
+function DataComponent() {
+  const { data, loading, error } = useFetch('https://api.example.com/data');
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div>
+      <h1>Data:</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+}
+
+export default DataComponent;
+```
+
+In this example, the `useFetch` custom hook encapsulates the logic for fetching data. The component using it can focus on rendering, without worrying about how the data is fetched.
+
+#### When to Create Custom Hooks?
+Custom hooks are best used when you have **reusable logic** that is needed in multiple components. Some common scenarios for creating custom hooks include:
+
+- **Fetching data from APIs** (like in the example above).
+- **Managing form state** and validations.
+- **Handling authentication** logic (e.g., checking if a user is logged in).
+- **Debouncing or throttling** user inputs.
+- **Syncing state with localStorage or sessionStorage**.
+
+#### Guidelines for When to Create a Custom Hook:
+1. **DRY Principle**: When you notice that the same logic is being copied into multiple components, it’s a good idea to extract it into a custom hook.
+2. **Complex Logic**: If a single component is handling too much logic (such as data fetching, subscribing to events, and managing state), splitting that logic into custom hooks can make the code easier to manage.
+3. **Encapsulation**: If the logic doesn’t rely on component-specific UI but is more focused on behavior (like data fetching), then it’s a good candidate for a custom hook.
+
+#### Advantages of Custom Hooks
+1. **Reusability**: Custom hooks allow you to write reusable logic that can be shared across multiple components.
+2. **Clean and Modular Code**: They help reduce code duplication and improve maintainability by moving complex logic out of the components themselves.
+3. **Testability**: Custom hooks can be easily unit tested since they are just functions.
+4. **Separation of Concerns**: They allow for a better separation of concerns by keeping the UI and logic separate.
+
+#### Disadvantages of Custom Hooks
+1. **Over-Optimization**: Custom hooks are helpful, but overusing them for trivial logic can make the codebase overly complex. For simple logic that isn’t reused, it’s often better to keep it inside the component.
+2. **Increased Abstraction**: Over-abstraction of hooks can make it harder for new developers to understand the flow of the application, as they need to track down what each custom hook does.
+3. **Dependency Management**: When using hooks like `useEffect` within custom hooks, managing the dependency array can become tricky and lead to bugs if not handled carefully.
+4. **Limited to React Hooks**: Custom hooks are tied to React and can only be used in React-based applications.
+
