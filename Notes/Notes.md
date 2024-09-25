@@ -663,3 +663,5 @@ Custom hooks are best used when you have **reusable logic** that is needed in mu
 3. **Dependency Management**: When using hooks like `useEffect` within custom hooks, managing the dependency array can become tricky and lead to bugs if not handled carefully.
 4. **Limited to React Hooks**: Custom hooks are tied to React and can only be used in React-based applications.
 
+### What is React Router?
+React Router is a standard library for routing in React applications. It enables navigation between different components within a React app, allowing for dynamic content rendering based on the URL path, without reloading the entire page. React Router manages the history stack, which ensures that navigating within a single-page application feels seamless, much like a multi-page app.
