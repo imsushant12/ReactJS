@@ -665,4 +665,3 @@ Custom hooks are best used when you have **reusable logic** that is needed in mu
 
 ### What is React Router?
 React Router is a standard library for routing in React applications. It enables navigation between different components within a React app, allowing for dynamic content rendering based on the URL path, without reloading the entire page. React Router manages the history stack, which ensures that navigating within a single-page application feels seamless, much like a multi-page app.
-
