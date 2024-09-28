@@ -579,7 +579,7 @@ A **custom hook** is essentially a JavaScript function that uses one or more bui
 - Custom hooks do **not modify the behavior of React**; they simply let you reuse logic.
 
 #### How Can We Create Custom Hooks?
-Creating a custom hook is similar to writing a normal function. The key difference is that a custom hook **uses React hooks internally**.
+Creating a custom hook is similar to writing a normal function. The key difference is that a custom hook uses React hooks internally.
 
 Example: **Custom Hook for Fetching Data**
 **Custom Hook (`useFetch`)**:
