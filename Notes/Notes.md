@@ -1,7 +1,7 @@
 ### What is React?
 **React** is a JavaScript library used for building user interfaces, particularly dynamic and interactive web applications. It was developed by Facebook to make it easier to build components that manage their own state and update efficiently. It’s primarily used to create single-page applications where content updates dynamically without reloading the entire page.
 
-**Example:**
+**Example**:
 ```jsx
 function Hello() {
   return <h1>Hello, world!</h1>;
@@ -11,13 +11,13 @@ function Hello() {
 ### What is SPA (Single Page Application)?
 A **Single Page Application (SPA)** loads a single HTML page and dynamically updates the content as the user interacts with the app, without reloading the page. React is ideal for building SPAs due to its virtual DOM, which allows fast updates to the UI.
 
-### What is JSX (JavaScript XML)
+### What is JSX (JavaScript XML)?
 JSX is a syntax extension for JavaScript, used with React to describe what the UI should look like. It looks like HTML but can contain JavaScript logic inside curly braces `{}`.
 
 ### What is Vite?
 **Vite** is a next-generation frontend build tool that is often used with React for its fast build times and optimized development experience. Unlike traditional build tools (e.g., Webpack), Vite provides an instant development server that leverages modern browser features like ES modules, reducing build time significantly.
 
-**Example:**
+**Example**:
 To create a React project with Vite, you can use:
 ```bash
 npm create vite@latest my-react-app --template react
@@ -29,14 +29,14 @@ npm create vite@latest my-react-app --template react
 ### How React Works?
 React builds a **virtual DOM** (a lightweight representation of the real DOM) and compares it with the actual DOM to update only the parts that have changed. This process is known as **reconciliation** and makes React highly efficient at updating the UI without full page reloads.
 
-### What are Components in React and the Difference Between Functional and Class-Based Components
+### What are Components in React and the Difference Between Functional and Class-Based Components?
 In React, components are the basic building blocks of the UI. They are reusable, isolated pieces of code that define how a part of the app should appear.
 
 There are two types of components:
 - **Functional Components**
 - **Class Components**
 
-#### Functional Components:
+#### Functional Components
 - These are JavaScript functions that return JSX (React’s syntax to define UI elements).
 - They are simpler, and with the introduction of **Hooks**, they can manage state and side effects.
 - They do not have lifecycle methods (like class components) but can use hooks like `useEffect` to mimic lifecycle behavior.
@@ -48,7 +48,7 @@ function Greeting(props) {
 }
 ```
 
-#### Class Components:
+#### Class Components
 - These are ES6 classes that extend from `React.Component` and have access to lifecycle methods like `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount`.
 - Class components manage state using `this.state` and update state using `this.setState()`.
 
@@ -61,7 +61,7 @@ class Greeting extends React.Component {
 }
 ```
 
-#### **Key Differences:**
+#### Key Differences:
 | Aspect                    | Functional Component | Class Component               |
 |---------------------------|----------------------|-------------------------------|
 | Syntax                    | Functions             | ES6 Classes                   |
@@ -73,7 +73,7 @@ class Greeting extends React.Component {
 ### What is ReactDOM and How is it Different from JavaScript DOM?
 **ReactDOM** is the package that provides methods to render React components to the real DOM. While the **JavaScript DOM** manipulates elements directly, ReactDOM handles the updates by comparing the virtual DOM with the real DOM and making necessary changes in an efficient way.
 
-**Example:**
+**Example**:
 ```jsx
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
@@ -116,10 +116,8 @@ export default function greet() { return "Hello"; }
 
 Here are the key lifecycle methods for each phase:
 
-#### 1. **Mounting Phase** (when the component is created and inserted into the DOM)
-
+#### 1. Mounting Phase (when the component is created and inserted into the DOM)
 - **`constructor()`**: This is called before the component is mounted. It’s commonly used to initialize state or bind event handlers.
-  
 - **`componentDidMount()`**: This method is called once after the component has been rendered. It's commonly used for side effects like data fetching, setting up subscriptions, or manipulating the DOM.
 
 **Example:**
@@ -143,10 +141,8 @@ class MyComponent extends React.Component {
 }
 ```
 
-#### 2. **Updating Phase** (when the component re-renders due to state or prop changes)
-
+#### 2. Updating Phase (when the component re-renders due to state or prop changes)
 - **`shouldComponentUpdate()`**: This method determines if the component should re-render when its state or props change. Returning `false` can prevent unnecessary renders.
-
 - **`componentDidUpdate(prevProps, prevState)`**: This method is called after the component re-renders. It's often used to handle side effects like fetching new data when props change.
 
 **Example:**
@@ -159,8 +155,7 @@ componentDidUpdate(prevProps) {
 }
 ```
 
-#### 3. **Unmounting Phase** (when the component is removed from the DOM)
-
+#### 3. Unmounting Phase (when the component is removed from the DOM)
 - **`componentWillUnmount()`**: This method is called just before a component is removed from the DOM. It's used to clean up resources like timers, event listeners, or subscriptions.
 
 **Example:**
@@ -170,8 +165,7 @@ componentWillUnmount() {
 }
 ```
 
-#### Summary of Lifecycle Methods:
-
+#### Summary of Lifecycle Methods
 | **Phase**       | **Method**              | **Purpose**                                    |
 |-----------------|-------------------------|------------------------------------------------|
 | Mounting        | `constructor()`          | Initialize state, bind methods                 |
@@ -181,12 +175,11 @@ componentWillUnmount() {
 | Unmounting      | `componentWillUnmount()` | Clean up resources before component is removed |
 
 ### What is State in React?
-**State** in React is an object that stores the dynamic data of a component. It allows components to "remember" things, like user input or the result of a calculation, and to update the UI whenever this data changes.
-
+State in React is an object that stores the dynamic data of a component. It allows components to **remember** things, like user input or the result of a calculation, and to update the UI whenever this data changes.
 - **Stateful components** can track information between renders, making them dynamic and interactive.
 - State is managed using the `useState` hook (in functional components) or `this.state` and `setState` (in class components).
 
-**Example with Functional Component (using `useState`):**
+**Example with Functional Component (using `useState`)**:
 ```jsx
 import React, { useState } from 'react';
 
@@ -204,6 +197,7 @@ function Counter() {
 
 export default Counter;
 ```
+
 In this example:
 - `useState(0)` initializes the state `count` to 0.
 - When the button is clicked, `setCount` is called to update the state, which causes the component to re-render with the new value of `count`.
@@ -211,7 +205,7 @@ In this example:
 ### What is Prop in React?
 **Props** (short for properties) are read-only inputs passed to components from their parent. Props allow components to be dynamic and reusable by passing data to them.
 
-**Example:**
+**Example**:
 ```jsx
 function Greeting(props) {
   return <h1>Hello, {props.name}!</h1>;
@@ -227,7 +221,7 @@ function Greeting(props) {
 #### Why Was React Fiber Introduced?
 In earlier versions of React, updates (like DOM manipulation) were done synchronously, meaning they blocked other tasks like user interactions until the rendering was complete. As applications grew in complexity, this led to performance issues, especially for components with heavy rendering logic.
 
-**Fiber was introduced to:**
+**Fiber was introduced to**:
 - Break the rendering process into small units of work.
 - Pause and resume tasks, enabling React to handle animations, transitions, and user interactions smoothly without being blocked by updates.
 - Allow React to prioritize rendering based on the importance of tasks, improving performance for complex apps.
@@ -238,7 +232,7 @@ Fiber uses a process called **reconciliation**, which refers to the way React up
 ### What is an Evaluated Expression in React?
 React allows the evaluation of JavaScript expressions within JSX using curly braces `{}`. However, you cannot use statements like `if` or `for` directly.
 
-**Example:**
+**Example**:
 ```jsx
 const variable = "Hi!";
 <h1>{variable}</h1>; // Works
@@ -259,7 +253,7 @@ Some of the most common hooks are:
 - `useEffect`: For side effects, like data fetching or DOM manipulation after render.
 - `useContext`: For accessing context values without passing props down manually.
 
-#### Key Hooks in React:
+#### Key Hooks in React
 - **`useState`**: Manages state.
 - **`useEffect`**: Performs side effects (e.g., data fetching, subscriptions).
 - **`useContext`**: Allows you to share values between components without passing props manually.
@@ -267,7 +261,7 @@ Some of the most common hooks are:
 - **`useMemo`**: Memoizes values to avoid expensive calculations on every render.
 - **`useReducer`**: Similar to `useState` but for more complex state logic.
 
-**Example:**
+**Example**:
 ```jsx
 function Counter() {
   const [count, setCount] = React.useState(0);
@@ -278,15 +272,15 @@ function Counter() {
 ### Why Were Hooks Introduced and What Problem Do They Solve?
 Before **Hooks**, state and side effects (like data fetching or DOM manipulation) could only be handled in **class components**. Functional components were simple but limited: they couldn't manage state, lifecycle, or side effects, which led to some significant issues:
 
-#### 1. Complex Class Components:
+#### 1. Complex Class Components
 - When an app's complexity grew, class components became hard to manage due to the presence of multiple lifecycle methods handling different concerns. For example, `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` could all handle different parts of a component's logic, leading to messy and hard-to-maintain code. 
 - **Problem**: Organizing logic inside these lifecycle methods was difficult, especially when unrelated logic was placed in the same method.
 
-#### 2. Code Duplication Across Components:
+#### 2. Code Duplication Across Components
 - Developers often ended up duplicating stateful logic across multiple components (e.g., data fetching or subscribing to an event).
 - **Problem**: Code that deals with fetching data, updating it, and cleaning it up was repeated in many places, leading to redundancy.
 
-#### 3. Hard-to-Reuse Logic:
+#### 3. Hard-to-Reuse Logic
 - Class components couldn’t easily share logic related to state and side effects. You could use **Higher-Order Components (HOCs)** or **Render Props**, but both were considered cumbersome and added extra layers of abstraction.
 - **Problem**: There was no simple way to reuse stateful logic between components.
 
@@ -328,7 +322,7 @@ class Timer extends React.Component {
 }
 ```
 
-**Functional Component with Hooks:**
+**Functional Component with Hooks**:
 ```jsx
 import React, { useState, useEffect } from 'react';
 
@@ -348,7 +342,7 @@ function Timer() {
 }
 ```
 
-#### Benefits of Hooks:
+#### Benefits of Hooks
 1. **No need for class syntax**: You can write simpler code using functional components.
 2. **Better logic organization**: Different logic (e.g., intervals, subscriptions) can be grouped into separate hooks instead of being cluttered in lifecycle methods.
 3. **Easy code reuse**: You can reuse hooks in different components easily by extracting custom hooks.
@@ -356,24 +350,24 @@ function Timer() {
 ### `useState()` Hook
 The `useState()` hook is one of the fundamental hooks in React. It lets you add state to functional components.
 
-#### Syntax:
+#### Syntax
 ```jsx
 const [state, setState] = useState(initialState);
 ```
 
-#### When to Use `useState()`:
+#### When to Use `useState()`
 - Use `useState()` when you need to **store** and **update** a value in your functional component.
 - For example, keeping track of user input, toggling UI elements, or managing counters.
 
-#### Advantages:
+#### Advantages
 - **Simplifies state management** in functional components.
 - Allows **reusable and testable code** without needing class components.
 - Provides **immediate access** to the updated state.
 
-#### Disadvantages:
+#### Disadvantages
 - If overused, state logic can get cluttered, especially when dealing with complex state.
 
-#### Example:
+#### Example
 ```jsx
 import React, { useState } from 'react';
 
@@ -392,26 +386,26 @@ function Counter() {
 ### `useCallback()` Hook
 The `useCallback()` hook is used to **memoize** functions in React, which prevents them from being re-created on every render unless one of its dependencies changes.
 
-#### Syntax:
+#### Syntax
 ```jsx
 const memoizedCallback = useCallback(() => {
   // Your logic
 }, [dependency]);
 ```
 
-#### When to Use `useCallback()`:
+#### When to Use `useCallback()`?
 - Use `useCallback()` when you want to **prevent unnecessary re-creations of functions**.
 - It's most effective in situations where a function is passed as a prop to child components, avoiding their unnecessary re-renders.
 
-#### Advantages:
+#### Advantages
 - **Optimizes performance** by memoizing functions, preventing unnecessary re-renders.
 - Helps **improve performance in large applications** with many components.
 
-#### Disadvantages:
+#### Disadvantages
 - It adds **complexity** to simple components and should only be used when performance optimization is needed.
 - Can result in **overhead** if used incorrectly or unnecessarily.
 
-#### Example:
+#### Example
 ```jsx
 import React, { useState, useCallback } from 'react';
 
@@ -431,7 +425,6 @@ function Counter() {
 }
 ```
 
-
 ### 4. `useEffect()` Hook
 The `useEffect()` hook allows you to **run side effects** in functional components. These side effects include fetching data, subscriptions, or manually changing the DOM.
 
@@ -445,19 +438,19 @@ useEffect(() => {
 }, [dependency]);
 ```
 
-#### When to Use `useEffect()`:
+#### When to Use `useEffect()`?
 - Use `useEffect()` for **fetching data**, **adding event listeners**, **cleaning up subscriptions**, etc.
 - It's similar to lifecycle methods in class components (`componentDidMount`, `componentDidUpdate`, `componentWillUnmount`).
 
-#### Advantages:
+#### Advantages
 - Allows **clean and simple handling** of side effects.
 - Lets you **clean up side effects** (such as removing event listeners) when the component unmounts.
 
-#### Disadvantages:
+#### Disadvantages
 - If not used correctly, it can cause **performance issues** (e.g., running effects too frequently).
 - **Complexity increases** when multiple side effects are used in one component.
 
-#### Example:
+#### Example
 ```jsx
 import React, { useState, useEffect } from 'react';
 
@@ -479,23 +472,23 @@ function Timer() {
 ### 5. `useRef()` Hook
 The `useRef()` hook gives you a way to **persist values** across renders without causing a re-render. It also provides access to **DOM elements directly**.
 
-#### Syntax:
+#### Syntax
 ```jsx
 const refContainer = useRef(initialValue);
 ```
 
-#### When to Use `useRef()`:
+#### When to Use `useRef()`?
 - Use `useRef()` when you need to **access DOM elements directly** (e.g., focus input fields) or **store mutable values** that persist across renders.
 - It’s great for keeping track of **previous state values** or referencing HTML elements.
 
-#### Advantages:
+#### Advantages
 - **Does not cause re-renders** when the value changes.
 - Allows **direct access to DOM elements** without causing performance issues.
 
-#### Disadvantages:
+#### Disadvantages
 - It should not be used to **track changing values** that need to cause re-renders.
 
-#### Example:
+#### Example
 ```jsx
 import React, { useRef } from 'react';
 
@@ -516,7 +509,6 @@ function TextInputFocus() {
 ```
 
 ### Difference Between `useEffect()` and `useCallback()` Hooks
-
 Both `useEffect()` and `useCallback()` serve different purposes in React:
 
 | **Feature**  | **`useEffect()`**  | **`useCallback()`**  |
@@ -526,8 +518,7 @@ Both `useEffect()` and `useCallback()` serve different purposes in React:
 | **Return Value** | Optional cleanup function  | Memoized version of the function  |
 | **Common Use Case**  | Fetch data, set up timers, clean up subscriptions  | Memoize callback functions to avoid re-rendering children |
 
-#### Real Example:
-
+#### Example
 **Using `useEffect()` for Side Effects:**
 ```jsx
 import React, { useState, useEffect } from 'react';
@@ -571,10 +562,8 @@ function ParentComponent() {
 
 In this example, `useCallback()` prevents the `increment` function from being re-created on every render, improving performance when passing it as a prop to the `Counter` component.
 
-
 ### What is Custom Hooks in React?
-A **custom hook** is essentially a JavaScript function that uses one or more built-in React hooks (`useState`, `useEffect`, etc.) and encapsulates logic that can be reused across multiple components. It allows you to share stateful logic without needing to restructure your component tree.
-
+A **custom hook** is essentially a JavaScript function that uses one or more built-in React hooks (`useState`, `useEffect`, etc.) and encapsulates logic that can be reused across multiple components. - It allows you to share stateful logic without needing to restructure your component tree.
 - It **follows the same rules** as regular hooks (starts with `use`, cannot be called inside loops or conditions, etc.).
 - Custom hooks do **not modify the behavior of React**; they simply let you reuse logic.
 
@@ -639,14 +628,13 @@ In this example, the `useFetch` custom hook encapsulates the logic for fetching 
 
 #### When to Create Custom Hooks?
 Custom hooks are best used when you have **reusable logic** that is needed in multiple components. Some common scenarios for creating custom hooks include:
-
 - **Fetching data from APIs** (like in the example above).
 - **Managing form state** and validations.
 - **Handling authentication** logic (e.g., checking if a user is logged in).
 - **Debouncing or throttling** user inputs.
 - **Syncing state with localStorage or sessionStorage**.
 
-#### Guidelines for When to Create a Custom Hook:
+#### Guidelines for When to Create a Custom Hook
 1. **DRY Principle**: When you notice that the same logic is being copied into multiple components, it’s a good idea to extract it into a custom hook.
 2. **Complex Logic**: If a single component is handling too much logic (such as data fetching, subscribing to events, and managing state), splitting that logic into custom hooks can make the code easier to manage.
 3. **Encapsulation**: If the logic doesn’t rely on component-specific UI but is more focused on behavior (like data fetching), then it’s a good candidate for a custom hook.
@@ -665,5 +653,3 @@ Custom hooks are best used when you have **reusable logic** that is needed in mu
 
 ### What is React Router?
 React Router is a standard library for routing in React applications. It enables navigation between different components within a React app, allowing for dynamic content rendering based on the URL path, without reloading the entire page. React Router manages the history stack, which ensures that navigating within a single-page application feels seamless, much like a multi-page app.
-
-
