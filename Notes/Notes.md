@@ -728,9 +728,7 @@ The `useId()` hook is a React hook that generates a unique ID for use in a compo
     <Greeting name="John" />
     ```
 
-- **PropTypes**: `PropTypes` is a type-checking library built into React. It allows you to specify the types of props your component expects. This helps catch bugs where the wrong type of data is passed to a component.
-
-  - **Why at the end**: PropTypes are defined at the end of the component to keep the logic and render flow clean. They are primarily used as a tool for developers, so defining them at the end does not interfere with the component's core functionality.
+- **PropTypes**: `PropTypes` is a type-checking library built into React. It allows you to specify the types of props your component expects. This helps catch bugs where the wrong type of data is passed to a component. PropTypes are defined at the end of the component to keep the logic and render flow clean. They are primarily used as a tool for developers, so defining them at the end does not interfere with the component's core functionality.
 
   - **Example**:
     ```jsx
