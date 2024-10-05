@@ -654,11 +654,109 @@ Custom hooks are best used when you have **reusable logic** that is needed in mu
 React Router is a standard library for routing in React applications. It enables navigation between different components within a React app, allowing for dynamic content rendering based on the URL path, without reloading the entire page. React Router manages the history stack, which ensures that navigating within a single-page application feels seamless, much like a multi-page app.
 
 
----
-- Why do we need to pass a key when we are looping in react in jsx component?
-- What is useId() hook?
-- What is <StrictMode> in React?
-- What is props and what is proptypes? Wy do we need to define proptypes at last in a component?
-  - What is defaultProps.
-  - Give an example of Props.
-- 
+### Why do we need to pass a `key` when we are looping in React in JSX components?
+In React, when rendering a list of elements dynamically (using `.map()` or loops), you need to provide a `key` prop to each child element. The `key` helps React identify which items have changed, been added, or removed. This is essential for efficiently updating the UI.
+
+React uses the `key` to keep track of elements between renders. Without it, React would re-render the entire list, even if only one item changes, leading to performance issues. The `key` helps React optimize rendering by reordering, adding, or removing elements as needed without affecting other elements.
+  
+- **Example**:
+  ```jsx
+  const items = ['apple', 'banana', 'cherry'];
+  
+  return (
+    <ul>
+      {items.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+    </ul>
+  );
+  ```
+  Here, the `key={index}` helps React differentiate between the list items.
+
+### What is `useId()` hook?
+The `useId()` hook is a React hook that generates a unique ID for use in a component. This is useful for elements that require unique IDs, like form inputs, for accessibility (associating `<label>` with `<input>`), or ensuring unique keys in lists.
+
+- **Why use `useId()`**: It is handy when you need a unique, stable ID that persists across re-renders but is not hard-coded, especially when dealing with components that are reused multiple times in an application.
+
+- **Example**:
+  ```jsx
+  import { useId } from 'react';
+
+  function InputField() {
+    const id = useId();
+
+    return (
+      <div>
+        <label htmlFor={id}>Name</label>
+        <input id={id} type="text" />
+      </div>
+    );
+  }
+  ```
+
+### What is `<StrictMode>` in React?
+`<StrictMode>` is a wrapper component in React that helps identify potential problems in your React code. It doesn't render any visible UI but activates additional checks and warnings in development mode.
+
+- **Features of StrictMode**:
+  - Highlights potential issues with lifecycles (such as improper use of effects).
+  - Warns about using deprecated APIs.
+  - Double invokes certain lifecycle methods and hooks (like `useEffect`) to detect side effects or bad patterns.
+  
+- **Usage**:
+  ```jsx
+  import React from 'react';
+  
+  function App() {
+    return (
+      <React.StrictMode>
+        <YourComponent />
+      </React.StrictMode>
+    );
+  }
+  ```
+
+### What is props and what is PropTypes? Why do we need to define PropTypes at the end of a component?
+- **Props**: Props (short for "properties") are arguments passed to components to configure them or provide data. They allow components to be dynamic and reusable.
+
+  - **Example**:
+    ```jsx
+    function Greeting(props) {
+      return <h1>Hello, {props.name}!</h1>;
+    }
+    
+    // Usage
+    <Greeting name="John" />
+    ```
+
+- **PropTypes**: `PropTypes` is a type-checking library built into React. It allows you to specify the types of props your component expects. This helps catch bugs where the wrong type of data is passed to a component.
+
+  - **Why at the end**: PropTypes are defined at the end of the component to keep the logic and render flow clean. They are primarily used as a tool for developers, so defining them at the end does not interfere with the component's core functionality.
+
+  - **Example**:
+    ```jsx
+    import PropTypes from 'prop-types';
+
+    function Greeting(props) {
+      return <h1>Hello, {props.name}!</h1>;
+    }
+
+    Greeting.propTypes = {
+      name: PropTypes.string.isRequired
+    };
+    ```
+
+### What is `defaultProps`?
+`defaultProps` is a property in React components used to define default values for props. If a prop is not passed to the component, it will use the value specified in `defaultProps`. It ensures that components have sensible default values and don't break if a prop is missing.
+
+- **Example**:
+  ```jsx
+  function Button({ label }) {
+    return <button>{label}</button>;
+  }
+
+  Button.defaultProps = {
+    label: 'Click me'
+  };
+  ```
+
+  In this case, if `label` is not passed to `Button`, it will default to `'Click me'`.
