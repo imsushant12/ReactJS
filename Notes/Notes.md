@@ -715,36 +715,34 @@ The `useId()` hook is a React hook that generates a unique ID for use in a compo
   }
   ```
 
-### What is props and what is PropTypes? Why do we need to define PropTypes at the end of a component?
-- **Props**: Props (short for "properties") are arguments passed to components to configure them or provide data. They allow components to be dynamic and reusable.
-
-  - **Example**:
-    ```jsx
-    function Greeting(props) {
-      return <h1>Hello, {props.name}!</h1>;
-    }
+### What is `props` and what is `PropTypes`? Why do we need to define `PropTypes` at the end of a component?
+**Props** (short for "properties") are arguments passed to components to configure them or provide data. They allow components to be dynamic and reusable.
+- **Example**:
+  ```jsx
+  function Greeting(props) {
+    return <h1>Hello, {props.name}!</h1>;
+  }
     
-    // Usage
-    <Greeting name="John" />
-    ```
+  // Usage
+  <Greeting name="John" />
+  ```
 
-- **PropTypes**: `PropTypes` is a type-checking library built into React. It allows you to specify the types of props your component expects. This helps catch bugs where the wrong type of data is passed to a component. PropTypes are defined at the end of the component to keep the logic and render flow clean. They are primarily used as a tool for developers, so defining them at the end does not interfere with the component's core functionality.
+**PropTypes** is a type-checking library built into React. It allows you to specify the types of props your component expects. This helps catch bugs where the wrong type of data is passed to a component. PropTypes are defined at the end of the component to keep the logic and render flow clean. They are primarily used as a tool for developers, so defining them at the end does not interfere with the component's core functionality.
 
-  - **Example**:
-    ```jsx
-    import PropTypes from 'prop-types';
+- **Example**:
+  ```jsx
+  import PropTypes from 'prop-types';
+  function Greeting(props) {
+    return <h1>Hello, {props.name}!</h1>;    
+  }
 
-    function Greeting(props) {
-      return <h1>Hello, {props.name}!</h1>;
-    }
-
-    Greeting.propTypes = {
-      name: PropTypes.string.isRequired
-    };
-    ```
+  Greeting.propTypes = {
+    name: PropTypes.string.isRequired
+  };
+  ```
 
 ### What is `defaultProps`?
-`defaultProps` is a property in React components used to define default values for props. If a prop is not passed to the component, it will use the value specified in `defaultProps`. It ensures that components have sensible default values and don't break if a prop is missing.
+It is a property in React components used to define default values for props. If a prop is not passed to the component, it will use the value specified in `defaultProps`. It ensures that components have sensible default values and don't break if a prop is missing.
 
 - **Example**:
   ```jsx
