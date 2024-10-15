@@ -1,1 +1,1 @@
-## TextMate React App
+## TextMate React Application
