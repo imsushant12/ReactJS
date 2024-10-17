@@ -4,9 +4,9 @@
 
 Say goodbye to tedious text management and hello to seamless writing experiences. Textmate provides a comprehensive suite of tools tailored for writers, editors, and anyone who works with text. From counting characters to analyzing readability scores, Textmate ensures that your writing is not only polished but also efficient.
 
-One of the standout features is the **built-in spell checker and grammar checker**, which help you eliminate errors in real-time, ensuring your work is always professional and polished. Additionally, the **text summarization tool** can help you distill large documents into concise summaries, saving you valuable time.
+One of the standout features is the built-in spell checker and grammar checker, which help you eliminate errors in real-time, ensuring your work is always professional and polished. Additionally, the text summarization tool can help you distill large documents into concise summaries, saving you valuable time.
 
-Textmate is not just about basic utilities; it includes advanced functionalities like **text encryption and decryption** for secure writing, as well as a **text comparison tool** that allows you to easily identify differences between document versions. Whether you are a student, professional, or content creator, Textmate is designed to meet your diverse text-processing needs.
+Textmate is not just about basic utilities; it includes advanced functionalities like text encryption and decryption for secure writing, as well as a text comparison tool that allows you to easily identify differences between document versions. Whether you are a student, professional, or content creator, Textmate is designed to meet your diverse text-processing needs.
 
 With ongoing updates and user feedback, Textmate continually evolves to incorporate the latest writing trends and technological advancements. Our commitment to enhancing user experience ensures that every writing session is productive and enjoyable.
 
