@@ -1,5 +1,5 @@
 ## TextMate React Application
-Textmate is a versatile text utility application designed to simplify your writing and editing process. Whether you need to count words, check grammar, or transform text, Textmate has got you covered! With a user-friendly interface and powerful features, you can enhance your productivity and creativity.
+Textmate is a versatile text utility application designed in ReactJS to simplify your writing and editing process. Whether you need to count words, check grammar, or transform text, Textmate has got you covered! With a user-friendly interface and powerful features, you can enhance your productivity and creativity.
 
 Say goodbye to tedious text management and hello to seamless writing experiences. Textmate provides a comprehensive suite of tools tailored for writers, editors, and anyone who works with text. From counting characters to analyzing readability scores, Textmate ensures that your writing is not only polished but also efficient.
 
