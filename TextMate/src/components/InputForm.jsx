@@ -9,7 +9,7 @@ function InputForm() {
     setText(event.target.value);
   };
 
-  // set the text to balcn (Cleartext)
+  // set the text to blank (Cleartext)
   const clearText = () => {
     let newText = "";
     setText(newText);
@@ -45,22 +45,103 @@ function InputForm() {
   };
 
   // copy text
-  const copyText = () => {};
+  const copyText = () => {
+    let copiedText = text;
+    navigator.clipboard.writeText(copiedText);
+  };
 
-  // checking the spelling
-  const spellChecker = () => {};
+  // Spell checker
+  const handleSpellCheck = async () => {
+    try {
+      const response = await fetch(`https://api.datamuse.com/words?sp=${text}`);
+      const suggestions = await response.json();
+      console.log(suggestions);
+      setText("WORK IN PROGRESS");
+    } catch (error) {
+      console.error("Error fetching spell check suggestions:", error);
+    }
+  };
 
   // checking the grammar
-  const grammarChecker = () => {};
+  const grammarChecker = async () => {
+    try {
+      const response = await fetch("https://api.languagetool.org/v2/check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          text: text,
+          language: "en-US",
+        }),
+      });
+
+      const result = await response.json();
+      let correctedText = text;
+
+      // Apply corrections based on API suggestions
+      result.matches.forEach((match) => {
+        const replacement = match.replacements[0]?.value || "";
+        correctedText =
+          correctedText.slice(0, match.offset) +
+          replacement +
+          correctedText.slice(match.offset + match.length);
+      });
+
+      setText("WORK IN PROGRESS");
+    } catch (error) {
+      console.error("Error correcting grammar:", error);
+    }
+  };
 
   // summarize the text
-  const summarizeText = () => {};
+  const summarizeText = async () => {
+    try {
+      const response = await fetch(
+        "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ inputs: text }),
+        }
+      );
+
+      const result = await response.json();
+      const summaryText =
+        result[0]?.summary_text || "Could not generate summary.";
+      setText(summaryText);
+    } catch (error) {
+      console.error("Error generating summary:", error);
+    }
+  };
 
   // reverse the text
-  const textReverse = () => {};
+  const textReverse = () => {
+    setText(text.split("").reverse().join(""));
+  };
 
   // toggle the text
-  const textToggle = () => {};
+  const textToggle = () => {
+    const toggledText = text
+      .split("")
+      .map((char) => {
+        return char === char.toLowerCase()
+          ? char.toUpperCase()
+          : char.toLowerCase();
+      })
+      .join("");
+    setText(toggledText);
+  };
+
+  // text to speech
+  const textToSpeech = () => {
+    if ("speechSynthesis" in window) {
+      const speech = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(speech);
+    } else {
+      console.error("Text-to-speech is not supported in this browser.");
+    }
+  };
 
   // counting words logic
   let wordsCounter = text.split(" ").length;
@@ -93,7 +174,8 @@ function InputForm() {
         <div className="d-flex justify-content-between align-items-center mt-3 mb-2">
           {/* Summary content */}
           <div className="fs-6 text-changer">
-            <b>Summary of your text</b>: Your text is of 5 minute
+            <b>Summary of your text</b>: Your text is of{" "}
+            {(wordsCounter * (1 / 183)).toFixed(0)} minute
             <span className="fs-6">(s)</span> read.
             <span className="blockquote text-dark fs-6">
               <span className="fs-6"> It has {text.length} character(s)</span>,
@@ -110,6 +192,7 @@ function InputForm() {
           >
             Clear Text
           </button>
+
         </div>
 
         {/* Text modification buttons */}
@@ -146,7 +229,7 @@ function InputForm() {
           </button>
           <button
             className="btn btn-sm mx-1 my-1 fs-6 btn-secondary"
-            onClick={spellChecker}
+            onClick={handleSpellCheck}
           >
             Spell Checker
           </button>
@@ -174,12 +257,15 @@ function InputForm() {
           >
             Case Toggling
           </button>
+          <button
+            className="btn btn-sm mx-1 my-1 fs-6 btn-secondary"
+            onClick={textToSpeech}
+          >
+            Listen Text
+          </button>
 
           {/* 
           // Additional buttons for future that can be tried 
-          <button className="btn btn-sm mx-1 my-1 fs-6 btn-secondary">
-            Text-to-Speech
-          </button>
           <button className="btn btn-sm mx-1 my-1 fs-6 btn-secondary">
             Find and Replace
           </button>
