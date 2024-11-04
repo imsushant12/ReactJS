@@ -1,8 +1,10 @@
 import "../App.css";
 import { useState } from "react";
+import config from '../../config.json';
 
 function InputForm() {
   const [text, setText] = useState("");
+  const apiKey = config.TEXTGEARS_API_KEY;
 
   // set the text area with the user input
   const previewText = (event) => {
@@ -53,10 +55,20 @@ function InputForm() {
   // Spell checker
   const handleSpellCheck = async () => {
     try {
-      const response = await fetch(`https://api.datamuse.com/words?sp=${text}`);
-      const suggestions = await response.json();
-      console.log(suggestions);
-      setText("WORK IN PROGRESS");
+      const textToCorrect = encodeURIComponent(text).replace(/%20/g, "+");
+
+      const response = await fetch(
+        `https://api.textgears.com/correct?text=${textToCorrect}&language=en-GB&key=${apiKey}`
+      );
+
+      const data = await response.json();
+
+      if (data.status && data.response.corrected) {
+        console.log("Corrected text:", data.response.corrected);
+        setText(data.response.corrected); // update the text with the corrected version
+      } else {
+        console.error("No corrections found or error in API response.");
+      }
     } catch (error) {
       console.error("Error fetching spell check suggestions:", error);
     }
@@ -65,53 +77,49 @@ function InputForm() {
   // checking the grammar
   const grammarChecker = async () => {
     try {
-      const response = await fetch("https://api.languagetool.org/v2/check", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          text: text,
-          language: "en-US",
-        }),
-      });
+      const textToCorrect = encodeURIComponent(text).replace(/%20/g, "+");
 
-      const result = await response.json();
-      let correctedText = text;
+      const response = await fetch(
+        `https://api.textgears.com/correct?text=${textToCorrect}&language=en-GB&key=${apiKey}`
+      );
 
-      // Apply corrections based on API suggestions
-      result.matches.forEach((match) => {
-        const replacement = match.replacements[0]?.value || "";
-        correctedText =
-          correctedText.slice(0, match.offset) +
-          replacement +
-          correctedText.slice(match.offset + match.length);
-      });
+      const data = await response.json();
 
-      setText("WORK IN PROGRESS");
+      if (data.status && data.response.corrected) {
+        console.log("Corrected text:", data.response.corrected);
+        setText(data.response.corrected); // update the text with the corrected version
+      } else {
+        console.error("No corrections found or error in API response.");
+      }
     } catch (error) {
-      console.error("Error correcting grammar:", error);
+      console.error("Error fetching spell check suggestions:", error);
     }
   };
 
   // summarize the text
   const summarizeText = async () => {
     try {
+      const textToCorrect = encodeURIComponent(text).replace(/%20/g, "+");
       const response = await fetch(
-        "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
+        `https://api.textgears.com/summarize?key=${apiKey}&language=en-GB&text=${textToCorrect}`,
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ inputs: text }),
+          method: "GET",
         }
       );
-
+  
       const result = await response.json();
-      const summaryText =
-        result[0]?.summary_text || "Could not generate summary.";
-      setText(summaryText);
+  
+      if (result.status) {
+        // Extract summary from the response
+        const summaryText = result.response.summary.join(" ") || "Could not generate summary.";
+        setText(summaryText);
+      } else {
+        console.error("Error in response:", result);
+        setText("Could not generate summary.");
+      }
     } catch (error) {
       console.error("Error generating summary:", error);
+      setText("Could not generate summary.");
     }
   };
 
@@ -192,7 +200,6 @@ function InputForm() {
           >
             Clear Text
           </button>
-
         </div>
 
         {/* Text modification buttons */}
@@ -237,7 +244,7 @@ function InputForm() {
             className="btn btn-sm mx-1 my-1 fs-6 btn-secondary"
             onClick={grammarChecker}
           >
-            Grammar Checker
+            Grammar Correction
           </button>
           <button
             className="btn btn-sm mx-1 my-1 fs-6 btn-secondary"
