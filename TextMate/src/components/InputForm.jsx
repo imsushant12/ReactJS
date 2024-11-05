@@ -4,7 +4,7 @@ import config from '../../config.json';
 
 function InputForm() {
   const [text, setText] = useState("");
-  const apiKey = config.TEXTGEARS_API_KEY;
+  const apiKey = config.GRAMMAR_API_KEY;
 
   // set the text area with the user input
   const previewText = (event) => {
