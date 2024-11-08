@@ -1,6 +1,6 @@
 import "../App.css";
 import { useState } from "react";
-import config from '../../config.json';
+import config from "../../config.json";
 
 function InputForm() {
   const [text, setText] = useState("");
@@ -65,7 +65,8 @@ function InputForm() {
 
       if (data.status && data.response.corrected) {
         console.log("Corrected text:", data.response.corrected);
-        setText(data.response.corrected); // update the text with the corrected version
+        // update the text with the corrected version
+        setText(data.response.corrected);
       } else {
         console.error("No corrections found or error in API response.");
       }
@@ -87,7 +88,8 @@ function InputForm() {
 
       if (data.status && data.response.corrected) {
         console.log("Corrected text:", data.response.corrected);
-        setText(data.response.corrected); // update the text with the corrected version
+        // update the text with the corrected version
+        setText(data.response.corrected);
       } else {
         console.error("No corrections found or error in API response.");
       }
@@ -106,15 +108,16 @@ function InputForm() {
           method: "GET",
         }
       );
-  
+
       const result = await response.json();
-  
+
       if (result.status) {
         // Extract summary from the response
-        const summaryText = result.response.summary.join(" ") || "Could not generate summary.";
+        const summaryText =
+          result.response.summary.join(" ") || "Could not generate summary.";
         setText(summaryText);
       } else {
-        console.error("Error in response:", result);
+        console.error("Error in the response:", result);
         setText("Could not generate summary.");
       }
     } catch (error) {
