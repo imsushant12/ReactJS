@@ -286,7 +286,10 @@ function InputForm() {
             Readability Score
           </button>
           <button className="btn btn-sm mx-1 my-1 fs-6 btn-secondary">
-            Text Encryption/Decryption
+            Text Encryption
+          </button>
+          <button className="btn btn-sm mx-1 my-1 fs-6 btn-secondary">
+            Text Decryption
           </button>
           <button className="btn btn-sm mx-1 my-1 fs-6 btn-secondary">
             Text Comparison
